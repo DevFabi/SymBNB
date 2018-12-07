@@ -6,6 +6,7 @@ use App\Entity\Ad;
 use Faker\Factory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use App\Entity\Image;
 
 class AppFixtures extends Fixture
 {
@@ -24,6 +25,13 @@ class AppFixtures extends Fixture
             ->setPrice(mt_rand(40,200))
             ->setRooms(mt_rand(1,5));
        
+            for ($j=1; $j <= mt_rand(2,5); $j++) { 
+                $image = new Image();
+                $image->setUrl($faker->imageUrl())
+                        ->setCaption($faker->sentence())
+                        ->setAd($ad);
+                $manager->persist($image);
+            }
             $manager->persist($ad);
          }
 
