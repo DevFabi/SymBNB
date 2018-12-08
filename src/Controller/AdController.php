@@ -29,9 +29,8 @@ class AdController extends AbstractController
      * 
      * @return Response
      */
-    public function show($slug, AdRepository $repo){
-        // Je récupère l'annonce qui correspond au slug
-        $ad = $repo->findOneBySlug($slug);
+    public function show(Ad $ad){
+       
         return $this->render('ad/show.html.twig', [
             'ad' => $ad
         ]);

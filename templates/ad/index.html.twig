@@ -7,6 +7,7 @@
     <h1 class="my-3">Voici les annonces</h1>
     <div class="row">
         {% for ad in ads %}
+        {% set url = path('ads_show', {'slug' : ad.slug}) %}
         <div class="col-md-4">
                 <div class="card bg-light mb-3">
                     <div class="card-header text-center">
@@ -21,7 +22,7 @@
                         <p class="card-text">
                                 {{ ad.introduction }}
                         </p>
-                        <a href=" {{ path('ads_show', {'slug' : ad.slug}) }}" class="btn btn-secondary">En savoir plus</a>
+                        <a href=" {{ url }}" class="btn btn-secondary">En savoir plus</a>
                     </div>
                 </div>
             </div>
