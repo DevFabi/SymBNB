@@ -7,19 +7,39 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class AdType extends AbstractType
 {
+/**
+ * Permet d'avoir la configuration de base d'un champ
+ *
+ * @param String $label
+ * @param String $placeholder
+ * @return array
+ */
+    private function getConfiguration($label, $placeholder){
+        return [
+            'label'=>$label,
+            'attr'=> [
+                'placeholder'=> $placeholder
+            ]
+            ];
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('slug')
-            ->add('price')
-            ->add('introduction')
-            ->add('content')
-            ->add('coverImage')
-            ->add('rooms')
+            ->add('title', TextType::class,$this->getConfiguration("titre", "Tapez un super titre"))
+            ->add('slug', TextType::class,$this->getConfiguration("Adresse web", "Tapez une adresse web"))
+            ->add('introduction', TextType::class, $this->getConfiguration("Introduction", "Donnez une description globale"))
+            ->add('content', TextareaType::class, $this->getConfiguration("Contenu", "Tapez un contenu"))
+            ->add('coverImage', UrlType::class, $this->getConfiguration("URL Image", "Mettez une image principale"))
+            ->add('rooms', IntegerType::class, $this->getConfiguration("Nombre de chambres", "Entrez le nombre de chambres"))
+            ->add('price', MoneyType::class, $this->getConfiguration("Prix par nuit", "Indiquer le prix pour une nuit"))
             ->add('save', SubmitType::class)
             
         ;
