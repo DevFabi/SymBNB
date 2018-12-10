@@ -7,11 +7,17 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdRepository")
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(
+ *  fields={"title"},
+ *  message= "une autre annonce possède déjà ce titre, merci de le modifier"
+ * )
  */
 class Ad
 {
@@ -52,6 +58,7 @@ class Ad
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url()
      */
     private $coverImage;
 
