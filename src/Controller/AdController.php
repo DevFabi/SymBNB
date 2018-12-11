@@ -27,37 +27,53 @@ class AdController extends AbstractController
     }
 
     /**
-     * Permet de créer une annonce
+     * Permet de créer une annonce et d'en éditer une
      *
      * @Route("/ads/new", name="ads_create")
+     * @Route("/ads/{slug}/edit", name="ads_edit")
      * @return Response
      * 
      */
-    public function create(Request $request, ObjectManager $manager){
-        $ad = new Ad();
-        $form= $this->createForm(AdType::class, $ad);
+    public function formAds(Ad $ad = null, Request $request, ObjectManager $manager)
+    {
+        $formEdition = true;
+        if (!$ad) {
+            $ad = new Ad();
+            $formEdition = false;
+        }
+        $form = $this->createForm(AdType::class, $ad);
 
         $form->handleRequest($request);
 
-        if ( $form->isSubmitted() && $form->isValid()) {
-            foreach($ad->getImages() as $image){
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($ad->getImages() as $image) {
                 $image->setAd($ad);
                 $manager->persist($image);
             }
             $manager->persist($ad);
             $manager->flush();
 
-            $this->addFlash( 
-                'success',
-                "Annonce {$ad->getTitle()} bien enregistrée"
-            );
+            if ($formEdition == false) {
+                $this->addFlash(
+                    'success',
+                    "Annonce {$ad->getTitle()} bien enregistrée"
+                );
+            } else {
+                $this->addFlash(
+                    'success',
+                    "Annonce {$ad->getTitle()} bien modifiée"
+                );
+            }
+
 
             return $this->redirectToRoute('ads_show', [
                 'slug' => $ad->getSlug()
             ]);
         }
-        return $this->render('ad/new.html.twig',
-                            [ 'form' => $form->createView()]);
+        return $this->render(
+            'ad/new.html.twig',
+            ['form' => $form->createView()]
+        );
     }
 
     /**
@@ -67,8 +83,9 @@ class AdController extends AbstractController
      * 
      * @return Response
      */
-    public function show(Ad $ad){
-       
+    public function show(Ad $ad)
+    {
+
         return $this->render('ad/show.html.twig', [
             'ad' => $ad
         ]);
