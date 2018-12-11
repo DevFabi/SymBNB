@@ -7,12 +7,19 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(
+ * fields={"email"},   
+ * message="Un autre utilisateur s'est déjà inscrit avec cette adresse email")
+ * 
  */
 class User implements UserInterface
 {
@@ -26,21 +33,25 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message= "Vous devez renseigner votre nom de famille")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="Veuillez renseigner un e-mail valide")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url(message="Veuillez donner une url valide pour votre avatar")
      */
     private $picture;
 
@@ -51,11 +62,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 10, minMessage="Votre introduction doit faire au moins 10 car.")
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min = 100, minMessage="Votre description doit faire au moins 100 car.")
      */
     private $description;
 
@@ -68,6 +81,12 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Ad", mappedBy="author")
      */
     private $ads;
+
+    /**
+     * @Assert\EqualTo(propertyPath="hash", message="Vous n'avez pas saisi les mêmes mots de passe")
+     * 
+     */
+    public $passwordConfirm;
 
      /**
      * @ORM\PrePersist
@@ -222,7 +241,7 @@ class User implements UserInterface
         return array('ROLE_USER');
     }
     public function getPassword(){
-        return $this->$hash;
+        return $this->hash;
     }
     public function getSalt(){}
 

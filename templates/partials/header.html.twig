@@ -16,8 +16,14 @@
             <li class="nav-item ml-auto">
                 <a class="nav-link" href="{{path('ads_create')}}">Créer une annonce</a>
             </li>
-            <li class="nav-item ml-auto">
-                <a class="nav-link" href="#">Mon compte</a>
+            <li class="nav-item ml-auto"></li>
+            {% if app.user %}
+            <a class="nav-link" href="{{path('account_logout')}}">Déconnexion</a>
+            {% else %}
+            <a class="nav-link" href="{{path('account_login')}}">Se connecter</a>
+            <a class="nav-link" href="{{path('account_register')}}">Inscription</a>
+            {% endif %}
+            
             </li>
         </ul>
     </div>
