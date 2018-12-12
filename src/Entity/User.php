@@ -88,6 +88,10 @@ class User implements UserInterface
      */
     public $passwordConfirm;
 
+
+    public function getFullName(){
+        return "{$this->firstName} {$this->lastName}";
+    }
      /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
