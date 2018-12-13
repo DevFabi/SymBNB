@@ -2,20 +2,21 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Entity\User;
-use App\Form\RegistrationType;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Form\AccountType;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use App\Entity\PasswordUpdate;
+use App\Form\RegistrationType;
 use App\Form\PasswordUpdateType;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends AbstractController
 {
@@ -71,7 +72,7 @@ class AccountController extends AbstractController
      * Modification du profil utilisateur
      *
      * @Route("/account/profile", name="account_profile")
-     * 
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function profile(Request $request, ObjectManager $manager){
@@ -95,7 +96,7 @@ class AccountController extends AbstractController
 
 /**
  * @Route("/account/update-password", name="account_password")
- * Modifier le mdp
+ * @IsGranted("ROLE_USER")
  *
  * @return Response
  */
@@ -137,6 +138,7 @@ class AccountController extends AbstractController
     /**
      * Permet d'afficher un profil d'utilisateur 'mon compte'
      * @Route("/account", name="account_index")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
 
