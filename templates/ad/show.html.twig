@@ -19,44 +19,49 @@
 
 <div class="container">
     <div class="row">
-            <div class="col-md-8 mb-3">
-                    {{ad.content | raw}}
+        <div class="col-md-8 mb-3">
+            {{ad.content | raw}}
 
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            {% for image in ad.images %}
-                                <li data-target="#carouselExampleIndicators" data-slide-to="{{loop.index0}}" {% if loop.index == 1 %}class="active"{% endif %}></li>
-                            {% endfor %}
-                        </ol>
-                        <div class="carousel-inner">
-                            {% for image in ad.images %}
-                            <div class="carousel-item {% if loop.index == 1 %} active {% endif %}">
-                                <img class="d-block w-100" src="{{image.url}}" alt="Image {{loop.index}}">
-                                <div class="carousel-caption d-none d-md-block">
-                                        <h5>{{image.caption}}</h5>
-                                </div>
-                            </div>
-                            {% endfor %}
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for image in ad.images %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{loop.index0}}" {% if loop.index==1
+                        %}class="active" {% endif %}></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for image in ad.images %}
+                    <div class="carousel-item {% if loop.index == 1 %} active {% endif %}">
+                        <img class="d-block w-100" src="{{image.url}}" alt="Image {{loop.index}}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{image.caption}}</h5>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
         <div class="col">
             {% set a = ad.author %}
 
             <div class="row">
                 <div class="col-3">
-                    <img class="avatar avatar-medium" src="{{a.picture}}" alt="avatar de {{a.fullName}}">
+                    <a href="{{path('user_show', {'slug': a.slug})}}">
+                        <img class="avatar avatar-medium" src="{{a.picture}}" alt="avatar de {{a.fullName}}">
+                    </a>
                 </div>
                 <div class="col">
-                    <h3>{{a.fullName}}</h3>
+                    <a href="{{path('user_show', {'slug': a.slug})}}">
+                        <h3>{{a.fullName}}</h3>
+                    </a>
                     <span class="badge badge-primary">
                         {{ a.ads | length}} Annonces
                     </span>
