@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vous n'avez pas les droits d'accès à cette page{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Alors ? Vous essayez de passer par dessus les droits des users ? Vous n'avez pas les droits pour accéder à cette ressource.</h1>
+        <p>Vous pouvez retourner à l'accueil </p>
+        {{ exception.message }}
+        <a href="{{path('homepage')}}" class="btn btn-primary">Retour à l'accueil</a>
+    </div>
+
+{% endblock %}
