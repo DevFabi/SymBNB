@@ -76,9 +76,47 @@ class Booking
 
     public function isBookableDates(){
         // Il faut connaitre les dates qui sont impossibles pour lannonce
+        $notAvailableDays = $this->ad->getNotAvailableDays();
+        // Récupérer les dates saisie pour la réservation
+        $bookingDays = $this->getDays();
+
+        //Transformation des deux tb datetime en string pour faciliter la comparaison
+         $days = array_map(function($day){
+             return $day->format('Y-m-d');
+         }, $bookingDays);
+
+         $notAvailable = array_map(function($day){
+            return $day->format('Y-m-d');
+        }, $notAvailableDays);
+
+        // Comparer les deux tb: si la meme journée s'y trouve: c'est un pb
+        foreach ($days as $day) {
+            //Chercher au sein d'un tb une information : premier paramètre, l'information . 2e : le tb de recherche
+            if ( array_search($day, $notAvailable) !== false) {
+                return false;
+            }
+            return true
+        }
+    }
+
+    /**
+     * Récupère les journées correspondant à la reservation
+     *
+     * @return array tb d'objet dateTime
+     */
+    public function getDays(){
+
+       $resultat = range(
+           $this->getStartDate->getTimestamp(), 
+           $this->getEndDate->getTimestamp(),
+           24 * 60 * 60);
         
-        // 2 Il faut comparer les dates choisies avec les dates impossibles
-        // Il faut retourner une réponse
+           // Transformer le tb $resultat de timestamp en tb de datetime object
+           $days = array_map(function($dayTimestamp){
+               return new \DateTime(date('Y-m-d', $dayTimestamp)); 
+            }, $resultat);
+
+           return $days;
     }
 
     public function getDuration(){

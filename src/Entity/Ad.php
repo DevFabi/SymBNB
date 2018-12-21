@@ -111,9 +111,9 @@ class Ad
         foreach ($this->bookings as $booking) {
            //Calculer les jours qui se toruvent entre la date d'arrivée et de départ
            $resultat = range(
-               $booking->getStartDate()->getTimestamp(),
-               $booking->getEndDate()->getTimestamp(),
-               24 * 60 * 60 * 1000
+               $booking->getStartDate->getTimestamp(),
+               $booking->getEndDate->getTimestamp(),
+               24 * 60 * 60
            );
 
            // Création d'un tb pour transformer le tb resultat qui est en timeqtamp : on le transforme en objet datetime grave à Array_map
