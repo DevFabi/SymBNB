@@ -7,6 +7,16 @@
 {% set author = ad.author %}
     <div class="container">
         <h1>Votre réservation n'{{booking.id}}</h1>
+
+        {% if app.request.query.get('withAlert') %}
+        
+            <div class="alert alert-success">
+                <h4 class="alert-heading"> Bravo !</h4>
+                <p>Votre réservation auprès de <strong>{{author.fullName}}</strong> pour l'annonce <strong>{{ad.title}} a été confirmée !</strong></p>
+            </div>
+        
+        {% endif %}
+        
         <div class="row">
             <div class="col">
                 <div class="alert alert-light">

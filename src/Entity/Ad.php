@@ -101,6 +101,33 @@ class Ad
         }
     }
 
+    /**
+     * Permet d'obtenir un tb des jours non dispo pour cette annonce
+     *
+     * @return array un tb d'objet datetime représentant les jours d'occupation
+     */
+    public function getNotAvailableDays(){
+        $notAvailableDays = [];
+        foreach ($this->bookings as $booking) {
+           //Calculer les jours qui se toruvent entre la date d'arrivée et de départ
+           $resultat = range(
+               $booking->getStartDate()->getTimestamp(),
+               $booking->getEndDate()->getTimestamp(),
+               24 * 60 * 60 * 1000
+           );
+
+           // Création d'un tb pour transformer le tb resultat qui est en timeqtamp : on le transforme en objet datetime grave à Array_map
+           $days = array_map(function($dayTimestamp){
+               return new \DateTime(date('Y-m-d', $dayTimestamp));
+           }, $resultat);
+
+           // On met notre résultat de datetimes 'days' dans 'notavailabledays' en fusionnant les tb avec array_murge
+           $notAvailableDays = array_merge($notAvailableDays, $days);
+
+           return $notAvailableDays;
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;

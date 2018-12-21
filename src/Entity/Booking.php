@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
@@ -31,11 +33,13 @@ class Booking
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Date(message="Attention, la date doit être au bon format")
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Date(message="Attention, la date doit être au bon format"
      */
     private $endDate;
 
@@ -68,6 +72,13 @@ class Booking
             //Prix de l'annonce * nb de jour
             $this->amount = $this->ad->getPrice() * $this->getDuration();
         }
+    }
+
+    public function isBookableDates(){
+        // Il faut connaitre les dates qui sont impossibles pour lannonce
+        
+        // 2 Il faut comparer les dates choisies avec les dates impossibles
+        // Il faut retourner une réponse
     }
 
     public function getDuration(){
