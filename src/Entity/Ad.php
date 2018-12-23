@@ -124,8 +124,8 @@ class Ad
            // On met notre résultat de datetimes 'days' dans 'notavailabledays' en fusionnant les tb avec array_murge
            $notAvailableDays = array_merge($notAvailableDays, $days);
 
-           return $notAvailableDays;
         }
+        return $notAvailableDays;
     }
 
     public function getId(): ?int
