@@ -39,7 +39,7 @@ class Booking
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\Date(message="Attention, la date doit être au bon format"
+     * @Assert\Date(message="Attention, la date doit être au bon format")
      */
     private $endDate;
 
@@ -95,7 +95,7 @@ class Booking
             if ( array_search($day, $notAvailable) !== false) {
                 return false;
             }
-            return true
+            return true;
         }
     }
 
@@ -107,8 +107,8 @@ class Booking
     public function getDays(){
 
        $resultat = range(
-           $this->getStartDate->getTimestamp(), 
-           $this->getEndDate->getTimestamp(),
+           $this->getStartDate()->getTimestamp(), 
+           $this->getEndDate()->getTimestamp(),
            24 * 60 * 60);
         
            // Transformer le tb $resultat de timestamp en tb de datetime object

@@ -111,8 +111,8 @@ class Ad
         foreach ($this->bookings as $booking) {
            //Calculer les jours qui se toruvent entre la date d'arrivée et de départ
            $resultat = range(
-               $booking->getStartDate->getTimestamp(),
-               $booking->getEndDate->getTimestamp(),
+               $booking->getStartDate()->getTimestamp(),
+               $booking->getEndDate()->getTimestamp(),
                24 * 60 * 60
            );
 
