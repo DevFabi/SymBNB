@@ -31,7 +31,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
 <script>
     $(document).ready(function(){
-        $('#booking_startDate, #booking_startDate').datepicker();
+        $('#booking_startDate, #booking_endDate').datepicker({
+            format: 'dd/mm/yyyy',
+            datesDisabled: [
+                {% for day in ad.notAvailableDays %}
+                    "{{ day.format('d/m/Y')}} ",
+                {% endfor %}
+            ],
+            startDate: new Date()
+        });
     })
 </script>
 {% endblock %}

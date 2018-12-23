@@ -116,7 +116,7 @@ class Ad
                24 * 60 * 60
            );
 
-           // Création d'un tb pour transformer le tb resultat qui est en timeqtamp : on le transforme en objet datetime grave à Array_map
+           // Création d'un tb pour transformer le tb resultat qui est en timestamp : on le transforme en objet datetime grave à Array_map
            $days = array_map(function($dayTimestamp){
                return new \DateTime(date('Y-m-d', $dayTimestamp));
            }, $resultat);
