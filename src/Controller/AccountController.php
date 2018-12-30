@@ -118,7 +118,6 @@ class AccountController extends AbstractController
                 $user->setHash($hash);
                 $manager->persist($user);
                 $manager->flush();
-
                 $this->addFlash(
                     'success',
                     'Votre mot de passe a bien été modifié'
