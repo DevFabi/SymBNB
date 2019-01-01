@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Faker\Provider\cs_CZ\DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -42,6 +44,18 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
+
+    /**
+     * Permet de mettre en place la date de création
+     * @ORM\PrePersist
+     *
+     * @return void
+     */
+    public function prePersist(){
+        if (empty($this->createdAt)) {
+           $this->createdAt = new \DateTime();
+        }
+    }
 
     public function getId(): ?int
     {
