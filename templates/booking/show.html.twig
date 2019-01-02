@@ -33,7 +33,7 @@
                         <dt class="col-md-4">Motant total</dt>
                         <dd class="col-md-8"> {{booking.amount}} </dd>
                         <dt class="col-md-4">Comentaire</dt>
-                        <dd class="col-md-8"> {{booking.comment}} </dd>
+                        <dd class="col-md-8"> {{booking.comment | default('Aucun commentaire')}} </dd>
                     </dl>
                     <hr>
                     <h2 class="alert-heading">Votre hôte</h2>
@@ -51,6 +51,18 @@
                     {{author.description | raw}}
                     <a href="{{path('user_show', {'slug' : author.slug })}}" class="btn btn-primary"> {{author.fullName}} </a>
 
+                </div>
+                <div class="alert alert-light">
+                    <h2 class="alert-heading">Votre avis compte!</h2>
+                    {% if date() > date(booking.endDate) %}
+                       {{ form_start(form)}}
+                       {{ form_widget(form)}}
+                       <button type="submit" class="btn btn-success">Confirmer</button>
+                       {{ form_end(form)}}
+                    {% else %}
+                        <p>Vous ne pourrez pas noter cette annonce tant que votre voyage de sera pas effectué.</p>
+                    {% endif %}
+                    
                 </div>
             </div>
             <div class="col">

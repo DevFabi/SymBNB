@@ -10,6 +10,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Egulias\EmailValidator\Exception\CommaInDomain;
+use App\Entity\Comment;
+use App\Form\CommentType;
 
 class BookingController extends AbstractController
 {
@@ -62,9 +65,12 @@ class BookingController extends AbstractController
      */
     public function show(Booking $booking)
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
         return $this->render(
             'booking/show.html.twig',
-            ['booking' => $booking]
+            ['booking' => $booking,
+            'form' => $form->createView()]
         );
     }
 }

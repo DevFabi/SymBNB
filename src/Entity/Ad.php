@@ -106,6 +106,25 @@ class Ad
             $this->slug = $slugifier->slugify($this->title);
         }
     }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function getAvgRatings(){
+        // Calculer la somme des notations
+        $sum = array_reduce($this->comments->toArray(), function($total, $comment){
+            return $total + $comment->getRating();
+        }, 0);
+
+        //Faire la division pour avoir les moyenne
+        if (count($this->comments) > 0) {
+            return $sum / count($this->comments);
+        } else{
+            return 0;
+        }
+        
+    }
 
     /**
      * Permet d'obtenir un tb des jours non dispo pour cette annonce

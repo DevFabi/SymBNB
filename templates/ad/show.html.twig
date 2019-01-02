@@ -57,6 +57,21 @@
                     <hr>
                         {% if ad.comments|length > 0 %}
                             <h2 class="mb-3">Commentaire de nos voyageurs :</h2>
+
+                                <div class="alert alert-info">
+                                    <h4 class="alert alert-heading text-center">
+                                        <div class="row align-item-center">
+                                            <div class="col">
+                                                Note globale donnée par nos voyageur <br>
+                                                <small>Cette moyenne est calculée sur avis  {{ ad.comments|length}} !</small>                                               
+                                            </div>
+                                            <div class="col"> 
+                                                {% include 'partials/rating.html.twig' with {'rating': ad.avgRatings} %}
+                                            </div>
+                                        </div>
+                                    </h4>
+                                </div>
+
                             {% for comment in ad.comments %}
                                 <div class="bg-light rounded mb-3 py-3 px-3">
                                     <strong>
