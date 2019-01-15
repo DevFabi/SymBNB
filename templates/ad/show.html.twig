@@ -82,9 +82,8 @@
                                         {{ comment.content}}
                                     </blockquote>
                                     <strong>
-                                        Note donnée par
-                                        {{ comment.author.fullName }}
-                                        :
+                                        Note :
+                                        
                                        
                                       {% include 'partials/rating.html.twig' with {'rating':comment.rating} %}
                                     </strong>

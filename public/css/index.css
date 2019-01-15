@@ -1,36 +1,56 @@
-div.container{
-    margin-top: 5px;
+div.container {
+    margin-top: 20px;
 }
-div.ad-title{
+
+div.ad-title {
     padding: 2em;
     background-size: cover;
     background-position: center center;
 }
 
-div.ad-title h1, div.ad-title p{
-color: white;
-text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.609);
-
+div.ad-title .btn {
+    margin-top: 2em;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    /* padding: 1em 1.5em; */
 }
 
-.avatar{
-    max-width: 128px;
-    max-height: 128px;
+div.ad-title h1, div.ad-title p {
+    color: white;
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);   
+}
+
+img.avatar {
     border-radius: 50%;
+    max-width: 100%;
 }
 
-.avatar-medium {
-    max-width: 64px;
-    max-height: 64px;
-} 
-
-.avatar-medium {
-    max-width: 24px;
-    max-height: 24px;
+img.avatar.avatar-medium {
+    width: 64px;
 }
 
-.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{
+img.avatar.avatar-mini {
+    width: 32px;
+}
+
+img.avatar.avatar-micro {
+    width: 24px;
+}
+
+img.avatar.avatar-large {
+    width: 128px;
+}
+
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover {
     color: firebrick !important;
+}
+
+.alert a {
+    text-decoration: none;
+}
+
+.alert a.btn {
+    color: white;
 }
 
 span.rating i {

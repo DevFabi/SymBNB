@@ -12,10 +12,22 @@
             <p>Retrouvez ci-dessous toutes vos réservations passées et à venir</p>
         </div>
             {% for booking in app.user.bookings %}
+            {% set ad = booking.ad %}
 
                 <div class="row mt-5">
                     <div class="col-4">
                         <img src="{{booking.ad.coverImage}}" alt="" class="img-fluid">
+                   <div class="mt-3">
+                       {% set comment = ad.commentFromAuthor(app.user) %}
+                       {% if comment is not null %}
+                        <strong>Notre donnée : </strong> {% include "partials/rating.html.twig" with {'rating': comment.rating } %}
+                       {% else %}
+                           <p>Vous n'avez pas encore donné de note.
+                               <a href="{{ path('booking_show', {'id' : booking.id}) }}#comment">Je donne mon avis!</a>
+                           </p>
+                       {% endif %}
+                       
+                   </div>
                     </div>
                     <div class="col-8">
                         <h4>{{booking.ad.title}}</h4>
