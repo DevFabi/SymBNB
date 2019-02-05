@@ -1,0 +1,56 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Modification de l'annonce numéro {{ad.id}}{% endblock %}
+
+{% block body %}
+<div class="container">
+
+        
+<h1>Modification de l'annonce {{ad.title}}</h1>
+
+</div>
+
+{{ form_start(form) }}
+<div class="row">
+    <div class="col"><div class="card bg-light">
+        <div class="card-header">
+           <h4 class="card-title"> Corriger l'annonce ?</h4>
+        </div>
+        <div class="card-body">
+            {{ form_widget(form) }}
+        </div>
+    </div></div>
+    <div class="col">
+        <div class="card bg-light">
+            <div class="card-header"><h4 class="card-title">Les réservations</h4></div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Voyageur</th>
+                            <th>Date de réservation</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in ad.bookings %}
+                        <tr>
+                            <td>{{booking.id}}</td>
+                            <td>{{booking.booker.fullName}}</td>
+                            <td>{{booking.createdAt | date('d/m/Y') }}</td>
+                            <td><a href="" class="btn btn-primary">
+                                <i class="fas fa-pen"></i>
+                            </a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form_end(form) }}
+
+{% endblock %}
